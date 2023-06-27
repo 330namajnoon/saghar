@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Almarai&family=Amiri&family=Bebas+Neue&family=Cairo&family=Changa:wght@300&family=Dancing+Script&family=El+Messiri&family=Fasthand&family=IBM+Plex+Sans+Arabic:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.app_container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../../public/mediya/backImage.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.app_container h1 {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: rgb(46, 46, 46);
+    color: aliceblue;
+    box-shadow: 1px 1px 20px black;
+    font-size: 20px;
+}
