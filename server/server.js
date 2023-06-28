@@ -15,10 +15,10 @@ server.listen(port,()=> {
 })
 
 
-app.get("/appData",(req,res)=> {
+app.post("/appData",multer().none(),(req,res)=> {
     fs.readFile("./data.json",(err,data)=> {
         if(!err) {
-            res.send(JSON.parse(data.toString()));
+            res.send(JSON.parse(data.toString()).find(u => u.id == req.body.id));
         }
     })
 })

@@ -1,40 +1,48 @@
-{
-    "appName": "Saghar",
-    "adminPassword": "sagharM",
-    "backImage": "backImage.jpg",
-    "music": "music.mp3",
-    "fonts": [
-        "'Almarai', sans-serif",
-        "'Amiri', serif",
-        "'Bebas Neue', sans-serif",
-        "'Cairo', sans-serif",
-        "'Changa', sans-serif",
-        "'Dancing Script', cursive",
-        "'El Messiri', sans-serif",
-        "'Fasthand', cursive",
-        "'IBM Plex Sans Arabic', sans-serif"
-    ],
-    "fontSelected":5,
-    "colors":{
-        "c1":"#2D4356",
-        "c2":"#176B87"
-    },
-    "books": [
-        {
-            "id": 1,
-            "name": "book1",
-            "pages": [
-                "page1",
-                "page2"
-            ]
+[
+    {
+        "id":"saghar",
+        "appName": "Saghar",
+        "adminPassword": "saghar",
+        "userPassword":"mal",
+        "passwordMsg":"que tal?",
+        "backImage": "backImage.jpg",
+        "music": "music.mp3",
+        "msg":"Te quiero mocho mi niña",
+        "fonts": [
+            "'Almarai', sans-serif",
+            "'Amiri', serif",
+            "'Bebas Neue', sans-serif",
+            "'Cairo', sans-serif",
+            "'Changa', sans-serif",
+            "'Dancing Script', cursive",
+            "'El Messiri', sans-serif",
+            "'Fasthand', cursive",
+            "'IBM Plex Sans Arabic', sans-serif"
+        ],
+        "fontSelected": 5,
+        "colors": {
+            "c1": "#2D4356",
+            "c2": "#176B87",
+            "c3":"#a47cc9",
+            "c4":"#7f7b83"
         },
-        {
-            "id": 2,
-            "name": "book2",
-            "pages": [
-                "page1",
-                "page2"
-            ]
-        }
-    ]
-}
+        "books": [
+            {
+                "id": 1,
+                "name": "book1",
+                "pages": [
+                    "page1",
+                    "page2"
+                ]
+            },
+            {
+                "id": 2,
+                "name": "book2",
+                "pages": [
+                    "page1",
+                    "page2"
+                ]
+            }
+        ]
+    }
+]
