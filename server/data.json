@@ -1,13 +1,13 @@
 [
     {
-        "id":"saghar",
+        "id": "saghar",
         "appName": "Saghar",
         "adminPassword": "saghar",
-        "userPassword":"mal",
-        "passwordMsg":"que tal?",
-        "backImage": "backImage.jpg",
-        "music": "music.mp3",
-        "msg":"Te quiero mocho mi niña",
+        "userPassword": "mal",
+        "passwordMsg": "que tal?",
+        "backImage": "saghar.jpg",
+        "music": "saghar.mp3",
+        "msg": "Te quiero mocho mi niña",
         "fonts": [
             "'Almarai', sans-serif",
             "'Amiri', serif",
@@ -20,12 +20,12 @@
             "'IBM Plex Sans Arabic', sans-serif"
         ],
         "fontSelected": 5,
-        "colors": {
-            "c1": "#2D4356",
-            "c2": "#176B87",
-            "c3":"#a47cc9",
-            "c4":"#7f7b83"
-        },
+        "colors": [
+            "#b7682c",
+            "#ffffff",
+            "#cfa1c0",
+            "#000000"
+        ],
         "books": [
             {
                 "id": 1,
