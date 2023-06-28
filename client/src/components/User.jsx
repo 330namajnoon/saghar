@@ -12,11 +12,11 @@ export function User() {
     <UserContext.Provider value={{setLogin}} >
       {login ? (
         <div  className="user_container">
-          <div style={{border:`solid 2px ${appData.colors.c1}`,backgroundColor:`${appData.colors.c4}60`}} className="msg_container">
+          <div style={{border:`solid 2px ${appData.colors[0]}`,backgroundColor:`${appData.colors.c4}60`}} className="msg_container">
             <div className="m_m">
               <MusicPlayer/>
             </div>
-            <h1 style={{color:appData.colors.c3}} className="msg">{appData.msg}</h1>
+            <h1 style={{color:appData.colors[1]}} className="msg">{appData.msg}</h1>
           </div>
         </div>
       ):(

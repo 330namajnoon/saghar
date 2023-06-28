@@ -6,14 +6,14 @@ import Loading from "./Loading";
 import { Admin } from "./Admin";
 import { User } from "./User";
 export default function App() {
-  const appURL = "http://localhost:4000";
+  const appURL = "";
   const [appData, setAppData] = useState({});
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     dataDownload();
   }, []);
   return (
-    <AppContext.Provider value={{ appData,setAppData }}>
+    <AppContext.Provider value={{ appData,setAppData,updateData ,uploadFile,getUrl}}>
       {loading ? (
         <div
           style={{ fontFamily: appData.fonts[appData.fontSelected],backgroundImage:`url(${appData.backImage.length < 200 ?`../mediya/${appData.backImage}`:appData.backImage})`}}
@@ -21,8 +21,8 @@ export default function App() {
         >
           <h1
             style={{
-              color: appData.colors.c2,
-              backgroundColor: appData.colors.c1,
+              color: appData.colors[1],
+              backgroundColor: appData.colors[0],
             }}
           >
             {appData.appName}
@@ -36,14 +36,15 @@ export default function App() {
   );
 
   function getUrl(value = "id") {
-    let url = window.location.pathname.split("/");
+    let url = window.location.search.slice(1,window.location.search.length).split("&");
     let res;
     switch (value) {
       case "id":
-        res = url[1];
+        console.log(url)
+        res = url[0];
         break;
       case "admin":
-        res = url[2];
+        res = url[1];
         break;
     }
     return res;
@@ -56,5 +57,27 @@ export default function App() {
       setAppData(res.data);
       setLoading(true);
     });
+  }
+  
+  function updateData() {
+    const formData = new FormData();
+    formData.append("id", getUrl());
+    formData.append("data",JSON.stringify(appData));
+    setLoading(false);
+    axios.post(`${appURL}/updateData`, formData).then((res) => {
+      setAppData(res.data);
+      setLoading(true);
+    });
+
+  }
+  function uploadFile(file) {
+    const formData = new FormData();
+    formData.append("id", getUrl());
+    formData.append("file",file);
+    setLoading(false);
+    axios.post(`${appURL}/uploadFile`, formData).then((res) => {
+      setLoading(true);
+    });
+
   }
 }

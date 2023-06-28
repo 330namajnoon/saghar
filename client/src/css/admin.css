@@ -64,4 +64,16 @@
 .colors .color {
     width: 10vw;
     height: 10vw;
+    border-radius: 10vw;
+    margin: 10px;
+    box-shadow: 1px 1px 10px black;
+}
+
+.admin_container .password {
+    font-size: 5vw;
+
+}
+.password input {
+    width: 35vw;
+    font-size: 3vw;
 }

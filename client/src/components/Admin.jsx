@@ -5,14 +5,16 @@ import { MusicPlayer } from "./MusicPlayer";
 import "../css/admin.css";
 
 export function Admin() {
-  const { appData, setAppData } = useContext(AppContext);
+  const { appData, setAppData,updateData,uploadFile ,getUrl} = useContext(AppContext);
   const [msg, setMsg] = useState(appData.msg);
-  const [fileM, setFileM] = useState();
-  const [fileI, setFileI] = useState();
+  const [fileM, setFileM] = useState(null);
+  const [fileI, setFileI] = useState(null);
   const fileInputM = useRef(null);
   const fileInputI = useRef(null);
   const colorInput = useRef(null);
-  const [colorSelect,setColorSelect] = useState(0);
+  const [colorSelect, setColorSelect] = useState(0);
+  const [userPassword,setUserPassword] = useState(appData.userPassword);
+  const [passwordMSG,setPasswordMSG] = useState(appData.passwordMsg);
   return (
     <AdminContext.Provider value={{}}>
       <div className="admin_container">
@@ -28,9 +30,9 @@ export function Admin() {
         <input
           style={{
             fontFamily: appData.fonts[appData.fontSelected],
-            border: `solid 1px ${appData.colors.c2}`,
-            color: `${appData.colors.c2}`,
-            backgroundColor: `${appData.colors.c1}`,
+            border: `solid 1px ${appData.colors[1]}`,
+            color: `${appData.colors[1]}`,
+            backgroundColor: `${appData.colors[0]}`,
           }}
           type="button"
           value="NEW IMAGE"
@@ -40,8 +42,8 @@ export function Admin() {
         />
         <div
           style={{
-            border: `solid 2px ${appData.colors.c1}`,
-            backgroundColor: `${appData.colors.c4}60`,
+            border: `solid 2px ${appData.colors[0]}`,
+            backgroundColor: `${appData.colors[3]}60`,
           }}
           className="msg_container"
         >
@@ -59,9 +61,9 @@ export function Admin() {
             <input
               style={{
                 fontFamily: appData.fonts[appData.fontSelected],
-                border: `solid 1px ${appData.colors.c2}`,
-                color: `${appData.colors.c2}`,
-                backgroundColor: `${appData.colors.c1}`,
+                border: `solid 1px ${appData.colors[1]}`,
+                color: `${appData.colors[1]}`,
+                backgroundColor: `${appData.colors[0]}`,
               }}
               type="button"
               value="NEW MUSIC"
@@ -73,7 +75,7 @@ export function Admin() {
           <textarea
             style={{
               fontFamily: appData.fonts[appData.fontSelected],
-              color: appData.colors.c3,
+              color: appData.colors[1],
             }}
             className="msg"
             value={msg}
@@ -84,9 +86,9 @@ export function Admin() {
         </div>
         <select
           style={{
-            border: `solid 1px ${appData.colors.c2}`,
-            color: `${appData.colors.c2}`,
-            backgroundColor: `${appData.colors.c1}`,
+            border: `solid 1px ${appData.colors[1]}`,
+            color: `${appData.colors[1]}`,
+            backgroundColor: `${appData.colors[0]}`,
             fontFamily: appData.fonts[appData.fontSelected],
           }}
           className="fonts"
@@ -109,16 +111,59 @@ export function Admin() {
           )}
         </select>
         <div className="colors">
-          <input ref={colorInput} type="color" style={{display:"none"}} onChange={(e)=> {
-            
-          }}/>
-          {appData.colors.map((c,index)=> (
-            <div onClick={(e)=> {
+          <input ref={colorInput} type="color" style={{ display: "none" }} onChange={(e) => {
+            let newData = { ...appData };
+            newData.colors[colorSelect] = e.target.value;
+            setAppData(newData);
+          }} />
+          {appData.colors.map((c, index) => (
+            <div onClick={(e) => {
               setColorSelect(index);
               colorInput.current.click();
-            }} style={{backgroundColor:c}} className="color"></div>
+            }} style={{ backgroundColor: c }} className="color"></div>
           ))}
         </div>
+        <div style={{color:appData.colors[1]}} className="password">
+            <input type="text" value={passwordMSG} onChange={(e)=>{
+              setPasswordMSG(e.target.value);
+              
+            }} style={{
+              backgroundColor:appData.colors[3]+"90",
+              color:appData.colors[1],
+              border:"solid 1px"+appData.colors[0]
+            }}/>
+            {"=>"}
+            <input type="text" value={userPassword} onChange={(e)=>{
+              setUserPassword(e.target.value);
+            }} style={{
+              backgroundColor:appData.colors[3]+"90",
+              color:appData.colors[1],
+              border:"solid 1px"+appData.colors[0]
+            }}/>
+        </div>
+        <input type="button" value="SAVE" style={{
+          backgroundColor:appData.colors[2],
+          color:appData.colors[1],
+          padding:"5px",
+          width:"35vw",
+          fontFamily:appData.fonts[appData.fontSelected],
+          fontSize:"4vw",
+          marginTop:"20px"
+        }} onClick={()=> {
+          let newData = {...appData};
+          if(fileI) {
+            newData.backImage = getUrl("id") + fileI.name.split(".")[1];
+            uploadFile(fileI);
+          }
+          if(fileM) {
+            newData.music = getUrl("id") + fileM.name.split(".")[1];
+            uploadFile(fileM);
+          }
+          newData.userPassword = userPassword;
+          newData.passwordMsg = passwordMSG;
+          setAppData(newData);
+          updateData();
+        }}/>
       </div>
     </AdminContext.Provider>
   );

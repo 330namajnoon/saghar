@@ -7,12 +7,12 @@ function UserPassword() {
     const {setLogin} = useContext(UserContext);
     return ( 
         <div style={{backgroundImage:`url(../mediya/${appData.backImage})`}} className="userPassword_container">
-            <div style={{backgroundColor:`${appData.colors.c4}60`,border:`solid 2px ${appData.colors.c3}`}} className="password_container">
-                <h1 style={{color:`${appData.colors.c3}`}} >{appData.passwordMsg}</h1>
+            <div style={{backgroundColor:`${appData.colors[3]}60`,border:`solid 2px ${appData.colors[2]}`}} className="password_container">
+                <h1 style={{color:`${appData.colors[2]}`}} >{appData.passwordMsg}</h1>
                 <input onInput={(event)=> {
                     let value = event.target.value;
                     if(value === appData.userPassword) setLogin(true);
-                }} style={{color:`${appData.colors.c3}`,backgroundColor:`${appData.colors.c4}90`,border:`solid 2px ${appData.colors.c3}`}}  type="text" />
+                }} style={{color:`${appData.colors[2]}`,backgroundColor:`${appData.colors[3]}90`,border:`solid 2px ${appData.colors[2]}`}}  type="text" />
             </div>
         </div>
     );

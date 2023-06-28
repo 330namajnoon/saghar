@@ -8,15 +8,15 @@ export function MusicPlayer() {
   const [time,setTime] = useState(0);
   let timer_;
   return (
-    <div style={{backgroundColor:appData.colors.c2}} className="musicPlayer_container">
+    <div style={{backgroundColor:appData.colors[1]}} className="musicPlayer_container">
       <audio ref={audio}  src={appData.music.length < 200 ?`../mediya/${appData.music}`:appData.music}></audio>
       {!played ? (
-        <span style={{color:appData.colors.c1}} onClick={()=> {
+        <span style={{color:appData.colors[0]}} onClick={()=> {
           setPlayed(true);
           play_pause();
         }} className="material-symbols-rounded" id="play_pause">play_circle</span>
         ):(
-          <span style={{color:appData.colors.c1}} onClick={()=> {
+          <span style={{color:appData.colors[0]}} onClick={()=> {
             setPlayed(false)
             play_pause();
         }} className="material-symbols-rounded" id="play_pause">pause_circle</span>
