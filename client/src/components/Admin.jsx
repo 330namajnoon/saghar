@@ -1,13 +1,146 @@
-
-import { useContext } from 'react';
-import AppContext from '../contexts/AppContext';
-
+import { useContext, useRef, useState } from "react";
+import AppContext from "../contexts/AppContext";
+import AdminContext from "../contexts/AdminContext";
+import { MusicPlayer } from "./MusicPlayer";
+import "../css/admin.css";
 
 export function Admin() {
-  const {appData} = useContext(AppContext);
+  const { appData, setAppData } = useContext(AppContext);
+  const [msg, setMsg] = useState(appData.msg);
+  const [fileM, setFileM] = useState();
+  const [fileI, setFileI] = useState();
+  const fileInputM = useRef(null);
+  const fileInputI = useRef(null);
+  const colorInput = useRef(null);
+  const [colorSelect,setColorSelect] = useState(0);
   return (
-    <div>
-      {appData.appName}
-    </div>
+    <AdminContext.Provider value={{}}>
+      <div className="admin_container">
+        <input
+          accept="image/*"
+          ref={fileInputI}
+          type="file"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            fileReaderI(e.target.files[0]);
+          }}
+        />
+        <input
+          style={{
+            fontFamily: appData.fonts[appData.fontSelected],
+            border: `solid 1px ${appData.colors.c2}`,
+            color: `${appData.colors.c2}`,
+            backgroundColor: `${appData.colors.c1}`,
+          }}
+          type="button"
+          value="NEW IMAGE"
+          onClick={() => {
+            fileInputI.current.click();
+          }}
+        />
+        <div
+          style={{
+            border: `solid 2px ${appData.colors.c1}`,
+            backgroundColor: `${appData.colors.c4}60`,
+          }}
+          className="msg_container"
+        >
+          <div className="m_m">
+            <MusicPlayer />
+            <input
+              accept="audio/*"
+              ref={fileInputM}
+              type="file"
+              style={{ display: "none" }}
+              onChange={(e) => {
+                fileReaderM(e.target.files[0]);
+              }}
+            />
+            <input
+              style={{
+                fontFamily: appData.fonts[appData.fontSelected],
+                border: `solid 1px ${appData.colors.c2}`,
+                color: `${appData.colors.c2}`,
+                backgroundColor: `${appData.colors.c1}`,
+              }}
+              type="button"
+              value="NEW MUSIC"
+              onClick={() => {
+                fileInputM.current.click();
+              }}
+            />
+          </div>
+          <textarea
+            style={{
+              fontFamily: appData.fonts[appData.fontSelected],
+              color: appData.colors.c3,
+            }}
+            className="msg"
+            value={msg}
+            onInput={(e) => {
+              setMsg(e.target.value);
+            }}
+          ></textarea>
+        </div>
+        <select
+          style={{
+            border: `solid 1px ${appData.colors.c2}`,
+            color: `${appData.colors.c2}`,
+            backgroundColor: `${appData.colors.c1}`,
+            fontFamily: appData.fonts[appData.fontSelected],
+          }}
+          className="fonts"
+          onChange={(e) => {
+            let newData = { ...appData };
+            newData.fontSelected = parseInt(e.target.value);
+            setAppData(newData);
+          }}
+        >
+          {appData.fonts.map((f, index) =>
+            index === appData.fontSelected ? (
+              <option selected style={{ fontFamily: f }} value={index}>
+                Font
+              </option>
+            ) : (
+              <option style={{ fontFamily: f }} value={index}>
+                Font
+              </option>
+            )
+          )}
+        </select>
+        <div className="colors">
+          <input ref={colorInput} type="color" style={{display:"none"}} onChange={(e)=> {
+            
+          }}/>
+          {appData.colors.map((c,index)=> (
+            <div onClick={(e)=> {
+              setColorSelect(index);
+              colorInput.current.click();
+            }} style={{backgroundColor:c}} className="color"></div>
+          ))}
+        </div>
+      </div>
+    </AdminContext.Provider>
   );
-};
+
+  function fileReaderM(file) {
+    setFileM(file);
+    const fileReader = new FileReader();
+    fileReader.addEventListener("load", () => {
+      let newData = { ...appData };
+      newData.music = fileReader.result;
+      setAppData(newData);
+    });
+    fileReader.readAsDataURL(file);
+  }
+  function fileReaderI(file) {
+    setFileI(file);
+    const fileReader = new FileReader();
+    fileReader.addEventListener("load", () => {
+      let newData = { ...appData };
+      newData.backImage = fileReader.result;
+      setAppData(newData);
+    });
+    fileReader.readAsDataURL(file);
+  }
+}

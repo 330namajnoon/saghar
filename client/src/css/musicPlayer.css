@@ -1,0 +1,14 @@
+.musicPlayer_container {
+    padding: 5px;
+    border-radius: 10vw;
+    display: flex;
+    align-items: center;
+    background-color: aliceblue;
+    justify-content: space-between;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.732);
+}
+
+.musicPlayer_container #play_pause {
+    font-size: 7vw;
+}
+
