@@ -37,7 +37,7 @@ app.post("/updateData",multer().none(),(req,res)=> {
             const users = JSON.parse(data.toString());
             let index = users.indexOf(users.find(u => u.id == req.body.id));
             users[index] = JSON.parse(req.body.data);
-            console.log(users[index])
+           
             fs.writeFile("./data.json",JSON.stringify(users),(err)=> {
                 if(!err) {
                     res.send(users.find(u => u.id == req.body.id));
@@ -49,6 +49,6 @@ app.post("/updateData",multer().none(),(req,res)=> {
 
 app.post("/uploadFile",fileUploader.single("file"),(req,res)=> {
 
-    fs.renameSync(`../client/public/mediya/${req.file.originalname}`,`../client/public/mediya/${req.body.id}.${req.file.originalname.split(".")[1]}`);
+    fs.renameSync(`./build/mediya/${req.file.originalname}`,`./build/mediya/${req.body.id}`);
     res.send(true);
 })
