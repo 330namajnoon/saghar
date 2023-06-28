@@ -48,6 +48,6 @@ app.post("/updateData",multer().none(),(req,res)=> {
 
 app.post("/uploadFile",fileUploader.single("file"),(req,res)=> {
 
-    fs.renameSync(`../client/public/mediya/${req.file.originalname}`,`../client/public/mediya/${req.body.id}.${req.file.originalname.split(".")[1]}`);
+    fs.renameSync(`../client/public/mediya/${req.file.originalname}`,`../client/public/mediya/${req.body.id}`);
     res.send(true);
 })
