@@ -6,7 +6,7 @@ import Loading from "./Loading";
 import { Admin } from "./Admin";
 import { User } from "./User";
 export default function App() {
-  const appURL = "";
+  const appURL = "http://localhost:4000";
   const [appData, setAppData] = useState({});
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -16,9 +16,10 @@ export default function App() {
     <AppContext.Provider value={{ appData,setAppData,updateData ,uploadFile,getUrl}}>
       {loading ? (
         <div
-          style={{ fontFamily: appData.fonts[appData.fontSelected],backgroundImage:`url(${appData.backImage.length < 200 ?`../mediya/${appData.backImage}`:appData.backImage})`}}
-          className="app_container"
+        style={{ fontFamily: appData.fonts[appData.fontSelected],backgroundImage:`url(${appData.backImage.length < 200 ?`../mediya/${appData.backImage}`:appData.backImage})`}}
+        className="app_container"
         >
+          
           <h1
             style={{
               color: appData.colors[1],
@@ -40,7 +41,6 @@ export default function App() {
     let res;
     switch (value) {
       case "id":
-        console.log(url)
         res = url[0];
         break;
       case "admin":
@@ -59,10 +59,19 @@ export default function App() {
     });
   }
   
-  function updateData() {
+  function updateData(fileI,fileM) {
+    let newData = {...appData};
+    if(fileI) {
+      newData.backImage = getUrl("id")+Math.floor(Math.random()*10)+"."+ fileI.name.split(".")[1];
+      uploadFile(fileI,newData.backImage);
+    }
+    if(fileM) {
+      newData.music = getUrl("id")+Math.floor(Math.random()*10)+"."+fileM.name.split(".")[1];
+      uploadFile(fileM,newData.music);
+    }
     const formData = new FormData();
     formData.append("id", getUrl());
-    formData.append("data",JSON.stringify(appData));
+    formData.append("data",JSON.stringify(newData));
     setLoading(false);
     axios.post(`${appURL}/updateData`, formData).then((res) => {
       setAppData(res.data);
@@ -70,9 +79,9 @@ export default function App() {
     });
 
   }
-  function uploadFile(file) {
+  function uploadFile(file,name) {
     const formData = new FormData();
-    formData.append("id", getUrl());
+    formData.append("id", name);
     formData.append("file",file);
     setLoading(false);
     axios.post(`${appURL}/uploadFile`, formData).then((res) => {

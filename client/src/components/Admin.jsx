@@ -5,16 +5,14 @@ import { MusicPlayer } from "./MusicPlayer";
 import "../css/admin.css";
 
 export function Admin() {
-  const { appData, setAppData,updateData,uploadFile ,getUrl} = useContext(AppContext);
-  const [msg, setMsg] = useState(appData.msg);
+  const { appData, setAppData,updateData} = useContext(AppContext);
   const [fileM, setFileM] = useState(null);
   const [fileI, setFileI] = useState(null);
   const fileInputM = useRef(null);
   const fileInputI = useRef(null);
   const colorInput = useRef(null);
   const [colorSelect, setColorSelect] = useState(0);
-  const [userPassword,setUserPassword] = useState(appData.userPassword);
-  const [passwordMSG,setPasswordMSG] = useState(appData.passwordMsg);
+  
   return (
     <AdminContext.Provider value={{}}>
       <div className="admin_container">
@@ -78,9 +76,12 @@ export function Admin() {
               color: appData.colors[1],
             }}
             className="msg"
-            value={msg}
+            value={appData.msg}
             onInput={(e) => {
-              setMsg(e.target.value);
+              let newData = {...appData};
+              newData.msg = e.target.value;
+              setAppData(newData);
+              
             }}
           ></textarea>
         </div>
@@ -124,8 +125,10 @@ export function Admin() {
           ))}
         </div>
         <div style={{color:appData.colors[1]}} className="password">
-            <input type="text" value={passwordMSG} onChange={(e)=>{
-              setPasswordMSG(e.target.value);
+            <input type="text" value={appData.passwordMsg} onChange={(e)=>{
+              let newData = {...appData};
+              newData.passwordMsg = e.target.value;
+              setAppData(newData);
               
             }} style={{
               backgroundColor:appData.colors[3]+"90",
@@ -133,8 +136,10 @@ export function Admin() {
               border:"solid 1px"+appData.colors[0]
             }}/>
             {"=>"}
-            <input type="text" value={userPassword} onChange={(e)=>{
-              setUserPassword(e.target.value);
+            <input type="text" value={appData.userPassword} onChange={(e)=>{
+              let newData = {...appData};
+              newData.userPassword = e.target.value;
+              setAppData(newData);
             }} style={{
               backgroundColor:appData.colors[3]+"90",
               color:appData.colors[1],
@@ -150,19 +155,8 @@ export function Admin() {
           fontSize:"4vw",
           marginTop:"20px"
         }} onClick={()=> {
-          let newData = {...appData};
-          if(fileI) {
-            newData.backImage = getUrl("id") + fileI.name.split(".")[1];
-            uploadFile(fileI);
-          }
-          if(fileM) {
-            newData.music = getUrl("id") + fileM.name.split(".")[1];
-            uploadFile(fileM);
-          }
-          newData.userPassword = userPassword;
-          newData.passwordMsg = passwordMSG;
-          setAppData(newData);
-          updateData();
+          
+          updateData(fileI,fileM);
         }}/>
       </div>
     </AdminContext.Provider>
