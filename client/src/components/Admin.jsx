@@ -148,7 +148,7 @@ export function Admin() {
         </div>
         <input type="button" value="SAVE" style={{
           backgroundColor:appData.colors[2],
-          color:appData.colors[1],
+          color:appData.colors[3],
           padding:"5px",
           width:"35vw",
           fontFamily:appData.fonts[appData.fontSelected],

@@ -6,7 +6,7 @@ import Loading from "./Loading";
 import { Admin } from "./Admin";
 import { User } from "./User";
 export default function App() {
-  const appURL = "http://localhost:4000";
+  const appURL = "";
   const [appData, setAppData] = useState({});
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -62,11 +62,11 @@ export default function App() {
   function updateData(fileI,fileM) {
     let newData = {...appData};
     if(fileI) {
-      newData.backImage = getUrl("id")+Math.floor(Math.random()*10)+"."+ fileI.name.split(".")[1];
+      newData.backImage = getUrl("id")+Math.floor(Math.random()*10)+"."+ fileI.name.split(".")[fileI.name.split(".").length - 1];
       uploadFile(fileI,newData.backImage);
     }
     if(fileM) {
-      newData.music = getUrl("id")+Math.floor(Math.random()*10)+"."+fileM.name.split(".")[1];
+      newData.music = getUrl("id")+Math.floor(Math.random()*10)+"."+fileM.name.split(".")[fileM.name.split(".").length - 1];
       uploadFile(fileM,newData.music);
     }
     const formData = new FormData();

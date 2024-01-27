@@ -8,6 +8,7 @@ const cors = require("cors");
 const fs = require("fs");
 const app = express();
 app.use(express.static(pdp));
+app.use(cors());
 const server = http.createServer(app);
 const fileUploader = multer({storage:multer.diskStorage({
     destination:(req,file,cd)=> {
